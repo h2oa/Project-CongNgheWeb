@@ -71,3 +71,7 @@ CREATE TABLE comments (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 ```
+
+## 4. Truy cập trang web
+
+Truy cập trang web tại http://localhost:80/ hoặc http://localhost:80/<tên folder project>
