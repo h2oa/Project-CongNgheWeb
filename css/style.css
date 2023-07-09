@@ -1,0 +1,98 @@
+/* Reset CSS */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #337ab7;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #286090;
+}
+
+.error {
+    color: #ff0000;
+    margin-bottom: 10px;
+}
+
+.success {
+    color: #008000;
+    margin-bottom: 10px;
+}
+
+.blog {
+    margin-bottom: 20px;
+}
+
+.blog h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.blog p {
+    margin-bottom: 10px;
+}
+
+.comment {
+    margin-bottom: 10px;
+}
+
+.comment p {
+    margin-bottom: 5px;
+}
+
+.comment .author {
+    font-weight: bold;
+}
+
+.comment .date {
+    font-style: italic;
+    font-size: 12px;
+    color: #888;
+}
+
+textarea {
+    height: 100px;
+}
+
