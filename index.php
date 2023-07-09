@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// Kiểm tra xem người dùng đã đăng nhập chưa. Nếu chưa đăng nhập, chuyển hướng đến trang login.php
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
-// Hiển thị nội dung trang index.php
+// Content của index.php
+// Sửa thêm
 ?>
 
 <!DOCTYPE html>

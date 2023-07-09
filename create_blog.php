@@ -1,24 +1,22 @@
 <?php
 session_start();
 
-// Kiểm tra xem người dùng đã đăng nhập chưa. Nếu chưa đăng nhập, chuyển hướng đến trang login.php
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
-// Lấy thông tin người dùng từ session
 $userID = $_SESSION['user_id'];
 
-// Xử lý việc tạo blog mới
+// Xử lý tạo blog mới
+// Done
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
     $content = $_POST['content'];
     $author = $_POST['author'];
 
-    // Lưu thông tin blog vào cơ sở dữ liệu
+    // Lưu thông tin blog vào db
     if (saveBlog($userID, $title, $content, $author)) {
-        // Chuyển hướng về trang dashboard.php sau khi tạo blog thành công
         header("Location: dashboard.php");
         exit();
     } else {
@@ -26,15 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Hàm lưu blog vào cơ sở dữ liệu
+// Hàm lưu blog vào db
+// Done
 function saveBlog($userID, $title, $content, $author) {
     include 'db_connection.php';
 
-    // Thực hiện truy vấn INSERT để lưu blog
+    // INSERT
     $query = "INSERT INTO blogs (user_id, title, content, created_at, author)
                 VALUES ('$userID', '$title', '$content', NOW(), '$author')";
 
-    // Thực hiện truy vấn
     if (mysqli_query($connection, $query)) {
         mysqli_close($connection);
         return true;

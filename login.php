@@ -1,19 +1,17 @@
 <?php
 session_start();
 
-// Kiểm tra xem người dùng đã đăng nhập chưa. Nếu đã đăng nhập, chuyển hướng đến trang dashboard.php
 if (isset($_SESSION['user_id'])) {
     header("Location: dashboard.php");
     exit();
 }
 
-// Kiểm tra xem người dùng đã gửi yêu cầu đăng nhập hay chưa
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Lấy dữ liệu từ form đăng nhập
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Kiểm tra dữ liệu đăng nhập
+    // Check dữ liệu đăng nhập
     if (validateLogin($username, $password)) {
         // Đăng nhập thành công, lưu thông tin người dùng vào session
         $_SESSION['user_id'] = getUserID($username);
@@ -29,42 +27,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 function validateLogin($username, $password) {
     include 'db_connection.php';
 
-    // Truy vấn người dùng dựa trên tên đăng nhập
+    // Truy vấn db
     $query = "SELECT * FROM users WHERE username = '$username'";
     $result = mysqli_query($connection, $query);
 
-    // Kiểm tra số hàng kết quả
     if (mysqli_num_rows($result) > 0) {
-        // Lấy thông tin người dùng từ kết quả truy vấn
         $row = mysqli_fetch_assoc($result);
         $hashedPassword = $row['password'];
 
-        // So sánh mật khẩu đã mã hóa từ form đăng nhập với mật khẩu đã lưu trong cơ sở dữ liệu
+        // Check password
         if (password_verify($password, $hashedPassword)) {
-            // Mật khẩu đúng, trả về true
+            // Success
             mysqli_close($connection);
             return true;
         }
     }
 
-    // Đóng kết nối
     mysqli_close($connection);
     return false;
 }
 
-// Hàm lấy ID của người dùng dựa trên tên đăng nhập
+// Hàm lấy ID của người dùng
 function getUserID($username) {
     include 'db_connection.php';
 
-    // Truy vấn người dùng dựa trên tên đăng nhập
+    // Query
     $query = "SELECT id FROM users WHERE username = '$username'";
     $result = mysqli_query($connection, $query);
 
-    // Lấy ID của người dùng từ kết quả truy vấn
     $row = mysqli_fetch_assoc($result);
     $userID = $row['id'];
 
-    // Đóng kết nối
     mysqli_close($connection);
 
     return $userID;

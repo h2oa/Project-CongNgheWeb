@@ -1,13 +1,11 @@
 <?php
 session_start();
 
-// Kiểm tra xem người dùng đã đăng nhập chưa. Nếu đã đăng nhập, chuyển hướng đến trang dashboard.php
 if (isset($_SESSION['user_id'])) {
     header("Location: dashboard.php");
     exit();
 }
 
-// Kiểm tra xem người dùng đã gửi yêu cầu đăng ký hay chưa
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include 'db_connection.php';
     // Lấy dữ liệu từ form đăng ký
@@ -15,10 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     $email = $_POST['email'];
 
-    // Kiểm tra dữ liệu đăng ký
+    // Kiểm tra
     if (validateRegistration($username, $password, $email)) {
-        // Đăng ký thành công, lưu thông tin người dùng vào cơ sở dữ liệu (hoặc thực hiện các thao tác khác)
-        // Sau đó, chuyển hướng đến trang login.php để người dùng đăng nhập
+        // Success, lưu thông tin người dùng vào cơ sở dữ liệu
         header("Location: login.php");
         exit();
     } else {
@@ -26,9 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Hàm kiểm tra thông tin đăng ký (có thể thay thế bằng logic xác thực khác)
+// Hàm kiểm tra thông tin đăng ký
+// Done
 function validateRegistration($username, $password, $email) {
-    // Nếu thông tin đăng ký hợp lệ, cập nhật thông tin người dùng vào cơ sở dữ liệu
+    // Success, update vào db
     if (insertUser($username, $password, $email)) {
         return true;
     }
@@ -39,19 +37,17 @@ function validateRegistration($username, $password, $email) {
 function insertUser($username, $password, $email) {
     include 'db_connection.php';
 
-    // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
+    // Encrypt password
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Chuẩn bị truy vấn INSERT
+    // Query
     $query = "INSERT INTO users (username, password, email) VALUES ('$username', '$hashedPassword', '$email')";
 
-    // Thực hiện truy vấn
     if (mysqli_query($connection, $query)) {
-        // Đóng kết nối
         mysqli_close($connection);
         return true;
     } else {
-        // Xử lý lỗi nếu có
+        // Error
         echo "Lỗi: " . mysqli_error($connection);
         mysqli_close($connection);
         return false;

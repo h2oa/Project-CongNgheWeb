@@ -1,30 +1,28 @@
 <?php
-// Thay đổi các giá trị dưới đây để phù hợp với cấu hình của bạn
+// Thông số database
+// Sử dụng MySQL của Xampp server
 $host = 'localhost';
 $port = 3306;
 $database = 'mysql_database';
 $username = 'root';
 $password = '';
 
-// Kết nối đến cơ sở dữ liệu
+// Connect đến db
 $connection = mysqli_connect($host, $username, $password, $database, $port);
 
-// Kiểm tra lỗi kết nối
+// Check lỗi
 if (!$connection) {
     die("Lỗi kết nối: " . mysqli_connect_error());
 }
 
-// Đặt bộ mã hóa kết nối để đảm bảo đọc và ghi dữ liệu đúng dạng
+// Ghi dữ liệu đúng định dạng
 mysqli_set_charset($connection, 'utf8mb4');
-
-// Các đoạn mã khác và thao tác với cơ sở dữ liệu sẽ sử dụng biến $connection này
 
 // Ví dụ: Lấy dữ liệu từ bảng 'users'
 // $query = "SELECT * FROM users";
 // $result = mysqli_query($connection, $query);
 
 // if (mysqli_num_rows($result) > 0) {
-//     // Xử lý kết quả truy vấn
 //     while ($row = mysqli_fetch_assoc($result)) {
 //         echo "Username: " . $row['username'] . ", Email: " . $row['email'] . "<br>";
 //     }
@@ -32,6 +30,6 @@ mysqli_set_charset($connection, 'utf8mb4');
 //     echo "Không có dữ liệu.";
 // }
 
-// Đóng kết nối sau khi hoàn tất các thao tác
+// Ngắt kết nối
 // mysqli_close($connection);
 ?>

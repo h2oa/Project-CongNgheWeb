@@ -1,25 +1,21 @@
 <?php
 session_start();
 
-// Kiểm tra xem người dùng đã đăng nhập chưa. Nếu chưa đăng nhập, chuyển hướng đến trang login.php
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
-// Lấy thông tin người dùng từ session
 $userID = $_SESSION['user_id'];
 
-// Lấy ID của blog từ URL
 if (isset($_GET['blog_id'])) {
     $blogID = $_GET['blog_id'];
 } else {
-    // Nếu không có ID blog trong URL, chuyển hướng về trang dashboard.php
     header("Location: dashboard.php");
     exit();
 }
 
-// Lấy ID của người dùng từ URL
+// id người dùng lấy từ URL
 if (isset($_GET['user_id'])) {
     $userID = $_GET['user_id'];
 } else {
@@ -28,44 +24,40 @@ if (isset($_GET['user_id'])) {
 }
 
 
-// Lấy thông tin blog từ cơ sở dữ liệu
 $blog = getBlog($blogID);
 
 // Lấy danh sách bình luận của blog
 $comments = getComments($blogID);
 
-// Hàm lấy thông tin blog từ cơ sở dữ liệu
+// Hàm lấy thông tin blog từ db
+// Done
 function getBlog($blogID) {
     include 'db_connection.php';
 
-    // Truy vấn blog dựa trên ID
+    // Query blog dựa trên ID
     $query = "SELECT * FROM blogs WHERE id = '$blogID'";
     $result = mysqli_query($connection, $query);
 
-    // Lấy thông tin blog từ kết quả truy vấn
     $blog = mysqli_fetch_assoc($result);
 
-    // Đóng kết nối
     mysqli_close($connection);
 
     return $blog;
 }
 
-// Hàm lấy danh sách bình luận của blog từ cơ sở dữ liệu
+// Hàm lấy danh sách bình luận của blog từ db
 function getComments($blogID) {
     include 'db_connection.php';
 
-    // Truy vấn bình luận dựa trên ID blog
+    // Query
     $query = "SELECT * FROM comments WHERE blog_id = '$blogID'";
     $result = mysqli_query($connection, $query);
 
-    // Lấy danh sách bình luận từ kết quả truy vấn
     $comments = [];
     while ($row = mysqli_fetch_assoc($result)) {
         $comments[] = $row;
     }
 
-    // Đóng kết nối
     mysqli_close($connection);
 
     return $comments;

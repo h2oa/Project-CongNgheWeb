@@ -1,35 +1,30 @@
 <?php
 session_start();
 
-// Kiểm tra xem người dùng đã đăng nhập chưa. Nếu chưa đăng nhập, chuyển hướng đến trang login.php
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
-// Lấy thông tin người dùng từ session
 $userID = $_SESSION['user_id'];
 
-// Lấy danh sách blog từ cơ sở dữ liệu
 $blogs = getBlogs();
 
-// Hàm lấy danh sách blog từ cơ sở dữ liệu
+// Hàm lấy danh sách blog từ db
 function getBlogs() {
     include 'db_connection.php';
 
-    // Truy vấn danh sách blog
+    // Query
     $query = "SELECT blogs.id, blogs.title, blogs.author, users.username, users.id as user_id
           FROM blogs
           INNER JOIN users ON blogs.user_id = users.id";
     $result = mysqli_query($connection, $query);
 
-    // Lấy danh sách blog từ kết quả truy vấn
     $blogs = [];
     while ($row = mysqli_fetch_assoc($result)) {
         $blogs[] = $row;
     }
 
-    // Đóng kết nối
     mysqli_close($connection);
 
     return $blogs;
