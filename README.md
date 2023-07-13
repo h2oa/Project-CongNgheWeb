@@ -16,6 +16,10 @@ Hãy sử dụng các kiến thức lập trình frontend và backend mà bạn 
 
 Tải về bằng `git` hoặc Download file zip.
 
+Giải nén tệp ckeditor.zip trong cùng thư mục.
+
+![image](https://github.com/lengochoahust/Project-CongNgheWeb/assets/114990730/49c4f6f9-90cd-4b5b-9888-96afe2a6ee35)
+
 ## 2. Xampp
 
 Sử dụng chạy Apache server. Tải về tại https://www.apachefriends.org/download.html.
