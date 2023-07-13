@@ -48,8 +48,6 @@ CREATE TABLE blogs (
     user_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    image VARCHAR(255),
-    audio VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     author VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users(id)
