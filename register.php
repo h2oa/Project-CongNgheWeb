@@ -9,12 +9,12 @@ if (isset($_SESSION['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include 'db_connection.php';
     // Lấy dữ liệu từ form đăng ký
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username_re = $_POST['username'];
+    $password_re = $_POST['password'];
     $email = $_POST['email'];
 
     // Kiểm tra
-    if (validateRegistration($username, $password, $email)) {
+    if (validateRegistration($username_re, $password_re, $email)) {
         // Success, lưu thông tin người dùng vào cơ sở dữ liệu
         header("Location: login.php");
         exit();
@@ -25,23 +25,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Hàm kiểm tra thông tin đăng ký
 // Done
-function validateRegistration($username, $password, $email) {
+function validateRegistration($username_re, $password_re, $email) {
     // Success, update vào db
-    if (insertUser($username, $password, $email)) {
+    if (insertUser($username_re, $password_re, $email)) {
         return true;
     }
 
     return false;
 }
 
-function insertUser($username, $password, $email) {
+function insertUser($username_re, $password_re, $email) {
     include 'db_connection.php';
 
     // Encrypt password
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $hashedPassword = password_hash($password_re, PASSWORD_DEFAULT);
 
     // Query
-    $query = "INSERT INTO users (username, password, email) VALUES ('$username', '$hashedPassword', '$email')";
+    $query = "INSERT INTO users (username, password, email) VALUES ('$username_re', '$hashedPassword', '$email')";
 
     if (mysqli_query($connection, $query)) {
         mysqli_close($connection);

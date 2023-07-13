@@ -15,7 +15,7 @@ if (isset($_GET['blog_id'])) {
     exit();
 }
 
-// id người dùng lấy từ URL
+// id người dùng hiện tại đang xem blog
 if (isset($_GET['user_id'])) {
     $userID = $_GET['user_id'];
 } else {
@@ -25,7 +25,8 @@ if (isset($_GET['user_id'])) {
 
 
 $blog = getBlog($blogID);
-
+$authorBlog = $_GET['author_blog']; // tác giả blog hiện tại
+$viewer = $_GET['viewer']; // người xem hiện tại
 // Lấy danh sách bình luận của blog
 $comments = getComments($blogID);
 
@@ -93,7 +94,7 @@ function getComments($blogID) {
                         Your browser does not support the audio element.
                 </audio>
     <?php } ?>
-                <?php if ($comment['user_id'] == $userID) { ?>
+                <?php if ($viewer == $authorBlog) { ?>
                     <a href="delete_comment.php?comment_id=<?php echo $comment['id']; ?>">Delete</a>
                 <?php } ?>
             </div>
@@ -101,6 +102,8 @@ function getComments($blogID) {
         <?php } ?>
         <form method="POST" action="add_comment.php" enctype="multipart/form-data">
             <input type="hidden" name="blog_id" value="<?php echo $blogID; ?>">
+            <input type="hidden" name="viewer" value="<?php echo $viewer; ?>">
+            <input type="hidden" name="author_blog" value="<?php echo $authorBlog; ?>">
             <textarea name="comment_content" required></textarea>
             <p>Thêm hình ảnh cho comment?</p>
             <input type="file" name="image">

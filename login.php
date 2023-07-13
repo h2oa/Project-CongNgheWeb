@@ -8,14 +8,14 @@ if (isset($_SESSION['user_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Lấy dữ liệu từ form đăng nhập
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username_log = $_POST['username'];
+    $password_log = $_POST['password'];
 
     // Check dữ liệu đăng nhập
-    if (validateLogin($username, $password)) {
+    if (validateLogin($username_log, $password_log)) {
         // Đăng nhập thành công, lưu thông tin người dùng vào session
-        $_SESSION['user_id'] = getUserID($username);
-        $_SESSION['username'] = $username;
+        $_SESSION['user_id'] = getUserID($username_log);
+        $_SESSION['username'] = $username_log;
         header("Location: dashboard.php");
         exit();
     } else {
@@ -24,11 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Hàm kiểm tra thông tin đăng nhập
-function validateLogin($username, $password) {
+function validateLogin($username_log, $password_log) {
     include 'db_connection.php';
 
     // Truy vấn db
-    $query = "SELECT * FROM users WHERE username = '$username'";
+    $query = "SELECT * FROM users WHERE username = '$username_log'";
     $result = mysqli_query($connection, $query);
 
     if (mysqli_num_rows($result) > 0) {
@@ -36,7 +36,7 @@ function validateLogin($username, $password) {
         $hashedPassword = $row['password'];
 
         // Check password
-        if (password_verify($password, $hashedPassword)) {
+        if (password_verify($password_log, $hashedPassword)) {
             // Success
             mysqli_close($connection);
             return true;
@@ -48,11 +48,11 @@ function validateLogin($username, $password) {
 }
 
 // Hàm lấy ID của người dùng
-function getUserID($username) {
+function getUserID($username_log) {
     include 'db_connection.php';
 
     // Query
-    $query = "SELECT id FROM users WHERE username = '$username'";
+    $query = "SELECT id FROM users WHERE username = '$username_log'";
     $result = mysqli_query($connection, $query);
 
     $row = mysqli_fetch_assoc($result);

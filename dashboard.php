@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $userID = $_SESSION['user_id'];
+$viewer = $_SESSION['username'];
 
 $blogs = getBlogs();
 
@@ -48,7 +49,7 @@ function getBlogs() {
             </tr>
             <?php foreach ($blogs as $blog) { ?>
                 <tr>
-                <td><a href="view_blog.php?blog_id=<?php echo $blog['id']; ?>&user_id=<?php echo $blog['user_id']; ?>"><?php echo $blog['title']; ?></a></td>
+                <td><a href="view_blog.php?blog_id=<?php echo $blog['id']; ?>&viewer=<?php echo $viewer; ?>&author_blog=<?php echo $blog['author']; ?>"><?php echo $blog['title']; ?></a></td>
                     <td><?php echo $blog['author']; ?></td>
                 </tr>
             <?php } ?>

@@ -11,6 +11,8 @@ $userID = $_SESSION['user_id'];
 $user_comment = $_SESSION['username'];
 
 $blogID = $_POST['blog_id'];
+$viewer = $_POST['viewer'];
+$authorBlog = $_POST['author_blog'];
 $commentContent = $_POST['comment_content'];
 
 // Cần 1 hàm xử lý hình ảnh
@@ -34,6 +36,6 @@ $query = "INSERT INTO comments (blog_id, user_id, content, image_path, audio_pat
           VALUES ('$blogID', '$userID', '$commentContent', '$imagePath', '$audioPath', NOW(), '$user_comment')";
 $result = mysqli_query($connection, $query);
 
-header("Location: view_blog.php?blog_id=$blogID");
+header("Location: view_blog.php?blog_id=$blogID&viewer=$viewer&author_blog=$authorBlog");
 exit();
 ?>
