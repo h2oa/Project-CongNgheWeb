@@ -77,6 +77,14 @@ function getComments($blogID) {
         <h1>View Blog</h1>
         <h2><?php echo $blog['title']; ?></h2>
         <p><?php echo $blog['content']; ?></p>
+        <?php if (!empty($blog['image_path'])) { ?>
+                    <img src="<?php echo $blog['image_path']; ?>" alt="Image">
+                <?php } ?>
+                <?php if (!empty($blog['audio_path'])) { ?>
+                <audio controls>
+                    <source src="<?php echo $blog['audio_path']; ?>" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                </audio>
 
         <h3>Comments</h3>
         <?php foreach ($comments as $comment) { ?>
@@ -85,30 +93,22 @@ function getComments($blogID) {
                     <?php echo $comment['content']; ?>
                 </div>
                 <p>Posted by: <?php echo $comment['user']; ?></p>
-                <?php if (!empty($comment['image_path'])) { ?>
-                    <img src="<?php echo $comment['image_path']; ?>" alt="Image">
-                <?php } ?>
-                <?php if (!empty($comment['audio_path'])) { ?>
-                <audio controls>
-                    <source src="<?php echo $comment['audio_path']; ?>" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                </audio>
     <?php } ?>
-                <?php if ($viewer == $authorBlog) { ?>
+                <?php if ($viewer == $authorBlog && (count($comments) > 0)) { ?>
                     <a href="delete_comment.php?comment_id=<?php echo $comment['id']; ?>">Delete</a>
                 <?php } ?>
             </div>
             
         <?php } ?>
-        <form method="POST" action="add_comment.php" enctype="multipart/form-data">
+        <form method="POST" action="add_comment.php">
             <input type="hidden" name="blog_id" value="<?php echo $blogID; ?>">
             <input type="hidden" name="viewer" value="<?php echo $viewer; ?>">
             <input type="hidden" name="author_blog" value="<?php echo $authorBlog; ?>">
             <textarea name="comment_content" required></textarea>
-            <p>Thêm hình ảnh cho comment?</p>
+            <!-- <p>Thêm hình ảnh cho comment?</p>
             <input type="file" name="image">
             <p>Thêm audio cho comment?</p>
-            <input type="file" name="audio">
+            <input type="file" name="audio"> -->
             <button type="submit">Submit</button>
         </form>
 
