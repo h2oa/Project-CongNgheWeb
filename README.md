@@ -50,6 +50,8 @@ CREATE TABLE blogs (
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     author VARCHAR(255),
+    image_path VARCHAR(255),
+    audio_path VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 ```
@@ -63,8 +65,6 @@ CREATE TABLE comments (
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user VARCHAR(255),
-    image_path VARCHAR(255),
-    audio_path VARCHAR(255),
     FOREIGN KEY (blog_id) REFERENCES blogs(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
