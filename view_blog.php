@@ -85,7 +85,7 @@ function getComments($blogID) {
                     <source src="<?php echo $blog['audio_path']; ?>" type="audio/mpeg">
                         Your browser does not support the audio element.
                 </audio>
-
+<?php } ?>
         <h3>Comments</h3>
         <?php foreach ($comments as $comment) { ?>
             <div class="comment">
@@ -93,7 +93,6 @@ function getComments($blogID) {
                     <?php echo $comment['content']; ?>
                 </div>
                 <p>Posted by: <?php echo $comment['user']; ?></p>
-    <?php } ?>
                 <?php if ($viewer == $authorBlog && (count($comments) > 0)) { ?>
                     <a href="delete_comment.php?comment_id=<?php echo $comment['id']; ?>">Delete</a>
                 <?php } ?>
