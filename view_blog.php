@@ -85,7 +85,8 @@ function getComments($blogID) {
                     <source src="<?php echo $blog['audio_path']; ?>" type="audio/mpeg">
                         Your browser does not support the audio element.
                 </audio>
-<?php } ?>
+                <?php } ?>
+
         <h3>Comments</h3>
         <?php foreach ($comments as $comment) { ?>
             <div class="comment">

@@ -86,5 +86,12 @@ function getUserID($username_log) {
             <p>Không có tài khoản? Đăng ký tại <a href="register.php">Register</a></p>
         </form>
     </div>
+    <h3>Test đăng nhập bằng gmail API</h3>
+    <script src='./js/handle_gmail_login.js'></script>
+    <div id = "container">
+        <button id="btn_signin" onclick="handleAuthClick()">Đăng nhập bằng Gmail</button>
+    </div>
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 </body>
 </html>

@@ -19,13 +19,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: login.php");
         exit();
     } else {
-        $error_message = "Thông tin đăng ký không hợp lệ";
+        $error_message = "Thông tin đăng ký không hợp lệ, kiểm tra lại định dạng email, hoặc username, email đã tồn tại!";
     }
 }
 
 // Hàm kiểm tra thông tin đăng ký
 // Done
 function validateRegistration($username_re, $password_re, $email) {
+    include 'db_connection.php';
+    // kiểm tra email và username đã tồn tại trong db chưa
+    $query_check = "SELECT * FROM users WHERE email = '$email' OR username = '$username'";
+    $check_result = $connection->query($query_check);
+    if ($check_result->num_rows > 0) {
+        return false;
+    }
     // Success, update vào db
     if (insertUser($username_re, $password_re, $email)) {
         return true;
