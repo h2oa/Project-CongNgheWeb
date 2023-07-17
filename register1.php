@@ -99,7 +99,7 @@ function insertUser($username_re, $password_re, $email) {
 					<i class="button__icon fas fa-chevron-right"></i>
 				</button>
                 <button class="button login__submit" id="btn_signin" onclick="hrefLogin()">
-                    <span class="button__text">Have an account, login here</span>
+                    <span class="button__text">Register Now</span>
 					<i class="button__icon fas fa-chevron-right"></i>
 				</button>	
 			</form>

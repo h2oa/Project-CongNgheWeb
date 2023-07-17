@@ -72,26 +72,96 @@ function saveBlog($userID, $title, $content, $author, $audioPath) {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Create Blog</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>View Blog</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" type="text/css" href="css/comment.css"> -->
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 </head>
 <body>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+<!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="dashboard.php">Home</a>
+                    </li>
+                    <li>
+                        <a href="create_blog.php">New Blog</a>
+                    </li>
+                    <li>
+                        <a href="logout.php">Logout</a>
+                    </li>
+                    <!-- <li>
+                        <a href="contact.html">Contact</a>
+                    </li> -->
+                </ul>
+            </div>
+        <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <header class="intro-header" style="background-image: url('images/create-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Create a New Blog</h1>
+                        <!-- <h2 class="subheading">Problems look mighty small from 150 miles up</h2> -->
+                        <span class="meta">Share interesting things in your life through blogging</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+<!-- Create blog -->
+
+<body>
     <div class="container">
-        <h1>Create a New Blog</h1>
         <?php if (isset($error_message)) { ?>
             <div class="error"><?php echo $error_message; ?></div>
         <?php } ?>
+
         <form method="POST" action="" enctype="multipart/form-data">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title" style="width: 800px; height: 50px;" required><br>
             <label for="content">Content:</label>
             <textarea id="content" name="content" required></textarea>
             <input type="hidden" name="author" value="<?php echo $_SESSION['username']; ?>">
             <!-- <p>Thêm hình ảnh cho comment?</p>
             <input type="file" name="image"> -->
-            <p>Thêm audio cho comment?</p>
+            <p>Thêm audio cho blog?</p>
             <input type="file" name="audio">
-            <button type="submit">Create Blog</button>
+            <style>
+  .custom-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #337ab7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 20px;
+  }
+
+  .custom-button:hover {
+    background-color: #286090;
+  }
+</style>
+            <button type="submit" class="custom-button" style="float: right;">Create Blog</button>
         </form>
     </div>
     <script src="ckeditor/ckeditor.js"></script>

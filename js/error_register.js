@@ -1,0 +1,1 @@
+alert('Thông tin đăng ký không hợp lệ, username hoặc email đã tồn tại!');
