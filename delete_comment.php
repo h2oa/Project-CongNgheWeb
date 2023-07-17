@@ -30,7 +30,8 @@ function deleteComment($commentID, $userID) {
     include 'db_connection.php';
 
     // Xác minh bình luận thuộc về người dùng hiện tại trước khi xóa
-    $query = "SELECT * FROM comments WHERE id = '$commentID' AND user_id = '$userID'";
+    // $query = "SELECT * FROM comments WHERE id = '$commentID' AND user_id = '$userID'";
+    $query = "SELECT * FROM comments WHERE id = '$commentID'";
     $result = mysqli_query($connection, $query);
 
     if (mysqli_num_rows($result) > 0) {
